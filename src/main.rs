@@ -46,5 +46,12 @@ fn main() -> Result<(), Unspecified> {
     assert!(should_succeed.is_ok());
     assert!(!should_fail.is_ok());
 
+    let mut file = std::fs::File::open("config.example.yaml").expect("Unable to open file");
+    let mut contents = String::new();
+    file.read_to_string(&mut contents)
+        .expect("Unable to read file");
+    let d = YamlLoader::load_from_str(&contents).unwrap();
+    println!("Read YAML string: {:?}", d);
+
     Ok(())
 }
