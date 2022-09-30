@@ -1,10 +1,13 @@
 extern crate ring;
 extern crate data_encoding;
 
+use yaml_rust::YamlLoader;
+
 use data_encoding::HEXUPPER;
 use ring::error::Unspecified;
 use ring::rand::SecureRandom;
 use ring::{digest, pbkdf2, rand};
+use std::io::Read;
 use std::num::NonZeroU32;
 
 fn main() -> Result<(), Unspecified> {
@@ -45,6 +48,13 @@ fn main() -> Result<(), Unspecified> {
 
     assert!(should_succeed.is_ok());
     assert!(!should_fail.is_ok());
+
+    let mut file = std::fs::File::open("config.example.yaml").expect("Unable to open file");
+    let mut contents = String::new();
+    file.read_to_string(&mut contents)
+        .expect("Unable to read file");
+    let d = YamlLoader::load_from_str(&contents).unwrap();
+    println!("Read YAML string: {:?}", d);
 
     Ok(())
 }
