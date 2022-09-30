@@ -10,6 +10,8 @@ use ring::{digest, pbkdf2, rand};
 use std::io::Read;
 use std::num::NonZeroU32;
 
+mod hashing;
+
 fn main() -> Result<(), Unspecified> {
     const CREDENTIAL_LEN: usize = digest::SHA512_OUTPUT_LEN;
     let n_iter = NonZeroU32::new(100_000).unwrap();
