@@ -1,10 +1,13 @@
 extern crate ring;
 extern crate data_encoding;
 
+use yaml_rust::YamlLoader;
+
 use data_encoding::HEXUPPER;
 use ring::error::Unspecified;
 use ring::rand::SecureRandom;
 use ring::{digest, pbkdf2, rand};
+use std::io::Read;
 use std::num::NonZeroU32;
 
 fn main() -> Result<(), Unspecified> {
