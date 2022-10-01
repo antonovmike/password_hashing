@@ -1,3 +1,5 @@
+#!(allow[unused])
+
 extern crate ring;
 extern crate data_encoding;
 
